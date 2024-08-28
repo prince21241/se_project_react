@@ -1,6 +1,6 @@
 import WeatherCard from "../WeatherCard/WeatherCard";
 import { defaultClothingItems } from "../../utils/constants";
-import itemCard from "../ItemCard/itemCard";
+import Itemcard from "../ItemCard/itemCard";
 
 function Main() {
   return (
@@ -12,7 +12,7 @@ function Main() {
         </p>
         <ul className="cards__list">
           {defaultClothingItems.map((item) => {
-            return <itemCard key={item._id} item={item} />;
+            return <Itemcard key={item._id} item={item} />;
           })}
         </ul>
       </section>
