@@ -5,9 +5,7 @@ function ModalWIthForm() {
     <div className="modal">
       <div className="modal__content">
         <h2 className="modal__title">New garment</h2>
-        <button type="button" className="modal__close">
-          Close
-        </button>
+        <button type="button" className="modal__close"></button>
         <form className="modal__form">
           <label htmlFor="" className="modal__label">
             Name
