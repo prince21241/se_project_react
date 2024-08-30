@@ -10,6 +10,10 @@
 
 .header__date-and-location {
   margin: 0;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
 }
 
 .header__add-clothes-btn {
