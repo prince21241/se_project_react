@@ -12,7 +12,7 @@ import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 function App() {
   const [weatherData, setWeatherData] = useState({
     type: "",
-    temp: { F: 999, C: 999 },
+    temp: { F: 999 },
     city: "",
   });
   const [activeModal, setActiveModal] = useState("");
@@ -34,8 +34,8 @@ function App() {
   useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => {
-        filterData = filterWeatherData(data);
-        setWeatherData(filterData);
+        const filterdData = filterWeatherData(data);
+        setWeatherData(filterdData);
       })
       .catch(console.error);
   }, []);
