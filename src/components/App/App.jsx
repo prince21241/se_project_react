@@ -49,8 +49,8 @@ function App() {
       <ModalWIthForm
         title="New garment"
         buttonText="Add garment"
-        activeModal={activeModal}
         onClose={closeActiveModal}
+        isOpened={activeModal === "add-garment"}
       >
         <label htmlFor="Name" className="modal__label">
           Name
@@ -80,13 +80,15 @@ function App() {
             htmlFor="cold"
             className="modal__label modal__label_type_radio"
           >
-            <input id="cold" type="radio" className="modal__radio-input" /> Warm
+            <input id="cold" type="radio" className="modal__radio-input" />
+            Warm
           </label>
           <label
             htmlFor="warm"
             className="modal__label modal__label_type_radio"
           >
-            <input id="cold" type="radio" className="modal__radio-input" /> Cold
+            <input id="cold" type="radio" className="modal__radio-input" />
+            Cold
           </label>
         </fieldset>
       </ModalWIthForm>
