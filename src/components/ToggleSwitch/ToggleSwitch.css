@@ -1,21 +1,20 @@
 .switch {
   display: flex;
   position: relative;
-  margin-left: auto;
+  margin-left: 666px;
 }
 
 .switch__box {
   border-radius: 25px;
   border: 2px solid black;
-  width: 50px;
-  height: 30px;
+  width: 56px;
+  height: 28px;
   appearance: none;
 }
-
 .switch__slider {
   border-radius: 20px;
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   background-color: black;
   color: white;
   text-align: center;
@@ -24,30 +23,45 @@
 }
 
 .switch__slider-F {
-  top: 3px;
-  left: 28px;
+  left: 27px;
+  animation: slideF 0.2s ease-in;
 }
 
 .switch__slider-C {
-  top: 3px;
-  left: 5px;
+  animation: slideC 0.2s ease-in;
 }
 
-.switch__temp-F {
-  position: absolute;
-  top: -7px;
-  left: 38px;
+.switch__active {
   color: white;
 }
 
 .switch__temp-C {
   position: absolute;
-  top: -7px;
-  left: 14px;
-  color: white;
+  left: 7px;
+  top: -16px;
+  color: #f3f3f3;
 }
 
-.switch__active {
-  font-size: 16px;
-  color: white;
+.switch__temp-F {
+  position: absolute;
+  left: 36px;
+  top: -16px;
+  color: #f3f3f3;
+}
+
+@keyframes slideC {
+  0% {
+    transform: skewX(0deg) translateX(25px);
+  }
+  100% {
+    transform: skew(0deg);
+  }
+}
+@keyframes slideF {
+  0% {
+    transform: skewX(0deg) translateX(-25px);
+  }
+  100% {
+    transform: skew(0deg);
+  }
 }

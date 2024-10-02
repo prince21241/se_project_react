@@ -1,34 +1,38 @@
+@font-face {
+  src: url("../src/assets/fonts/CabinetGrotesk-Bold.woff2") format("woff2");
+  font-family: "Cabinet Grotesk";
+}
+
 .header {
   display: flex;
   align-items: center;
-  padding: 32px 0 28px;
+  padding: 32px 0px 28px;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
 }
 
 .header__logo {
   margin-right: 24px;
 }
 
-.header__date-and-location {
-  margin: 0;
-  font-family: "Cabinet Grotesk", sans-serif;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 24px;
-}
-
 .header__add-clothes-btn {
-  font-family: "Cabinet Grotesk", sans-serif;
+  margin-left: auto;
+  margin-right: 20px;
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
-  margin-right: 20px;
-  padding: 0;
   border: none;
-  background: none;
+  font-family: "Cabinet Grotesk";
   cursor: pointer;
 }
+.header__add-clothes-btn:hover {
+  color: grey;
+}
 
-.header__user-container {
+.header__user {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -39,9 +43,16 @@
   font-family: "Cabinet Grotesk", sans-serif;
   font-weight: 700;
   font-size: 20px;
-  line-height: 24px;
+  line-height: 24.8px;
 }
 
+.header__date-and-location {
+  margin: 0;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24.8px;
+}
 .header__link {
   text-decoration: none;
   color: black;

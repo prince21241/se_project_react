@@ -1,17 +1,17 @@
-.weather-card {
-  position: relative;
+.weather__card {
   display: flex;
   height: 80px;
   border-radius: 12px;
   overflow: hidden;
+  position: relative;
 }
 
 .weather-card__temp {
+  color: #fff;
+  font-weight: 700;
   font-size: 36px;
   line-height: 40px;
-  color: #ffffff;
-  font-family: "Cabinet Grotesk", sans-serif;
-  font-weight: 700;
+  font-family: "Cabinet Grotesk";
   margin: 0;
   position: absolute;
   top: 20px;
