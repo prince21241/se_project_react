@@ -1,0 +1,31 @@
+.register__signIn {
+  display: flex;
+  gap: 2px;
+}
+
+.register__login-link {
+  font-weight: 700;
+  width: 80px;
+  height: 40px;
+  background-color: #fff;
+  color: #0000004d;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.register__signup {
+  font-weight: 700;
+  width: 86px;
+  height: 36px;
+  background-color: #0000004d;
+  color: #fff;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+button.enabled {
+  background-color: black;
+  cursor: pointer;
+}
