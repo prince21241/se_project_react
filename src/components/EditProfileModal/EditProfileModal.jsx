@@ -1,4 +1,3 @@
-//import "./EditProfileModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useContext, useEffect, useState } from "react";
 import CurrentUserContext from "../../Context/CurrentUserContext";
