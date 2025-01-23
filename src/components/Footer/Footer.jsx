@@ -5,7 +5,7 @@ function Footer() {
     <footer className="footer">
       <ul className="footer__content">
         <li className="footer__content-name">Developed by Prince Raval</li>
-        <li className="footer__content-year"> 2024</li>
+        <li className="footer__content-year"> 2025</li>
       </ul>
     </footer>
   );
