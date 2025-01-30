@@ -14,6 +14,9 @@ import { getItems } from "../../utils/api";
 import { postItem } from "../../utils/api";
 import { deleteItem } from "../../utils/api";
 import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
+import LoginModal from "../LoginModal/LoginModal";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -86,6 +89,121 @@ function App() {
     setActiveModal("delete");
   };
 
+  // User registration
+  const handleUserRegister = (userData) => {
+    signup(userData)
+      .then(() =>
+        signin({ email: userData.email, password: userData.password })
+      )
+      .then((loginRes) => {
+        localStorage.setItem("jwt", loginRes.token);
+        setIsLoggedIn(true);
+        closeActiveModal();
+      })
+      .catch((err) => alert("Registration or login failed. Please try again."));
+  };
+
+  // User login
+  const handleUserLogin = ({ email, password }) => {
+    signin({ email, password })
+      .then((res) => {
+        localStorage.setItem("jwt", res.token);
+        setIsLoggedIn(true);
+        setCurrentUser(res.user);
+        console.log(res.user);
+        closeActiveModal();
+      })
+      .catch(() => alert("Login failed. Please check your credentials."));
+  };
+
+  // Function to handle liking/disliking an item
+  const handleCardLike = (item) => {
+    const token = localStorage.getItem("jwt");
+
+    if (!token) {
+      alert("You must be logged in to like items.");
+      return;
+    }
+
+    const isLiked = item.likes.includes(currentUser?._id);
+    const likeRequest = !isLiked
+      ? addCardLike(item._id, token)
+      : removeCardLike(item._id, token);
+
+    likeRequest
+      .then((updatedCard) => {
+        setClothingItems((items) =>
+          items.map((prevItem) =>
+            prevItem._id === item._id ? updatedCard.data : prevItem
+          )
+        );
+      })
+      .catch((err) => console.error("Error updating likes:", err));
+  };
+
+  // Function to handle editing profile
+  const handleEditProfileClick = () => {
+    console.log("Opening Edit Profile Modal");
+    setActiveModal("edit-profile");
+  };
+
+  const handleEditProfileSubmit = (userData) => {
+    const token = localStorage.getItem("jwt");
+    updateUser(userData, token)
+      .then((updatedUser) => {
+        setCurrentUser(updatedUser);
+        closeActiveModal();
+      })
+      .catch((err) => console.error("Error updating user profile:", err));
+  };
+
+  // Function to handle signing out
+  const handleSignOut = () => {
+    localStorage.removeItem("jwt");
+    setIsLoggedIn(false);
+    setCurrentUser(null);
+    window.location.href = "/";
+  };
+
+  // Load weather data on mount
+  useEffect(() => {
+    getWeather(coordinates, APIkey)
+      .then((data) => {
+        const filteredData = filterWeatherData(data);
+        setWeatherData(filteredData);
+      })
+      .catch((err) => console.error("Error fetching weather data:", err));
+  }, []);
+
+  // Load clothing items on mount
+  useEffect(() => {
+    getItems()
+      .then((data) => setClothingItems(data.data))
+      .catch((err) => console.error("Error fetching items:", err));
+  }, []);
+
+  // Validate token and fetch user data on mount
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      checkToken(token)
+        .then((userData) => {
+          setIsLoggedIn(true);
+          setCurrentUser(userData);
+        })
+        .catch(() => {
+          setIsLoggedIn(false);
+          localStorage.removeItem("jwt");
+        });
+    } else {
+      setIsLoggedIn(false); // user is not logged in.
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log("Active modal state changed to:", activeModal);
+  }, [activeModal]);
+
   return (
     <div className="page">
       <CurrentTemperatureUnitContext.Provider
@@ -103,6 +221,17 @@ function App() {
                   handleCardClick={handleCardClick}
                 />
               }
+              {activeModal === "login" && (
+                <>
+                  {console.log("rendering LoginModal")}
+                  <LoginModal
+                      closeActiveModal={closeActiveModal}
+                      onLogin={handleUserLogin}
+                      isOpen={activeModal === "login"}
+                      openRegisterModal={() => setActiveModal("sign-up")}
+                  />
+                </>
+              )}
             />
             <Route
               //and here aswell
