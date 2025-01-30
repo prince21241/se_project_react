@@ -1,67 +1,52 @@
 .switch {
   display: flex;
   position: relative;
-  margin-left: 666px;
+  margin-left: auto;
 }
 
 .switch__box {
   border-radius: 25px;
-  border: 2px solid black;
-  width: 56px;
-  height: 28px;
+  border: 2px solid #000;
+  width: 60px;
+  height: 30px;
   appearance: none;
 }
 .switch__slider {
   border-radius: 20px;
-  width: 28px;
-  height: 28px;
-  background-color: black;
-  color: white;
+  width: 30px;
+  height: 30px;
+  background-color: #000;
   text-align: center;
+  color: #fff;
   cursor: pointer;
   position: absolute;
 }
 
 .switch__slider-F {
-  left: 27px;
-  animation: slideF 0.2s ease-in;
+  left: 1px;
 }
 
 .switch__slider-C {
-  animation: slideC 0.2s ease-in;
-}
-
-.switch__active {
-  color: white;
+  left: 28px;
 }
 
 .switch__temp-C {
+  color: #fff;
+  top: -7px;
+  right: 11px;
+  font-size: 15px;
   position: absolute;
-  left: 7px;
-  top: -16px;
-  color: #f3f3f3;
 }
 
 .switch__temp-F {
+  color: #fff;
+  top: -7px;
+  left: 12px;
+  font-size: 15px;
   position: absolute;
-  left: 36px;
-  top: -16px;
-  color: #f3f3f3;
 }
 
-@keyframes slideC {
-  0% {
-    transform: skewX(0deg) translateX(25px);
-  }
-  100% {
-    transform: skew(0deg);
-  }
-}
-@keyframes slideF {
-  0% {
-    transform: skewX(0deg) translateX(-25px);
-  }
-  100% {
-    transform: skew(0deg);
-  }
+.switch__active {
+  font-size: 15px;
+  color: #fff;
 }

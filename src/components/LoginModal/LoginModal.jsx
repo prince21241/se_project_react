@@ -1,84 +1,58 @@
-import { useState } from "react";
-import "./LoginModal.css";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import "./LoginModal.css";
 
-function LoginModal({
-  onClose,
+const LoginModal = ({
+  closeActiveModal,
+  onLogin,
   isOpen,
-  onSubmit,
-  handleAddRegistration,
-  handleShowLogin,
-}) {
-  if (!isOpen) {
-    return null;
-  }
+  openRegisterModal,
+}) => {
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ email, password });
+    onLogin({ email, password });
   };
 
   return (
     <ModalWithForm
-      title="Log In"
-      buttonText="Log In"
-      onClose={onClose}
+      title="Sign In"
+      buttonText="Login"
       isOpen={isOpen}
+      onClose={closeActiveModal}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="email" className="modal__label">
+      <label className="modal__label">
         Email
         <input
           type="email"
           className="modal__input"
-          id="email"
-          placeholder="Email"
-          name="email"
+          placeholder="Your email"
           value={email}
-          onChange={handleEmailChange}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </label>
-      <label htmlFor="password" className="modal__label">
+      <label className="modal__label">
         Password
         <input
           type="password"
           className="modal__input"
-          id="password"
-          placeholder="Password"
-          name="password"
+          placeholder="Your password"
           value={password}
-          onChange={handlePasswordChange}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </label>
-      <div className="login__modal">
-        <button
-          type="submit"
-          className="login__button-modal"
-          onClick={handleShowLogin}
-        >
-          Log In
-        </button>
-        <button
-          type="submit"
-          className="signup__button-modal"
-          onClick={handleAddRegistration}
-        >
-          Or Sign up
-        </button>
-      </div>
+      <button
+        type="button"
+        onClick={openRegisterModal}
+        className="modal__secondary-button"
+      >
+        or sign up
+      </button>
     </ModalWithForm>
   );
-}
+};
 
 export default LoginModal;

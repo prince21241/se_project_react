@@ -1,68 +1,71 @@
+import React, { useState, useEffect, useContext } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { useContext, useEffect, useState } from "react";
-import CurrentUserContext from "../../Context/CurrentUserContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function EditProfileModal({ handleCloseModal, handleUpdateUserInfo, isOpen }) {
+const EditProfileModal = ({ onClose, updateUser, activeModal }) => {
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
 
-  const { currentUser } = useContext(CurrentUserContext);
-  console.log(currentUser);
+  // Access current user data from context
+  const currentUser = useContext(CurrentUserContext);
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-  const handleAvatarChange = (e) => {
-    setAvatar(e.target.value);
-  };
+  // Handle input changes
+  const handleNameChange = (e) => setName(e.target.value);
+  const handleAvatarChange = (e) => setAvatar(e.target.value);
 
-  useEffect(() => {
-    return () => {
-      setName(currentUser.name);
-      setAvatar(currentUser.avatar);
-    };
-  }, []);
+  const isOpen = activeModal === "edit-profile";
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Name:", name);
-    console.log("Avatar:", avatar);
-    const token = localStorage.getItem("jwt");
-    handleUpdateUserInfo({ name, avatar }, token);
+    if (!name.trim() || !avatar.trim()) {
+      alert("Please provide valid name and avatar URL.");
+      return;
+    }
+    updateUser({ name, avatar });
   };
+
+  // Pre-fill form with current user data when modal opens
+  useEffect(() => {
+    if (isOpen && currentUser) {
+      setName(currentUser.name || "");
+      setAvatar(currentUser.avatar || "");
+    }
+  }, [isOpen, currentUser]);
 
   return (
     <ModalWithForm
-      title="Change Profile Data"
+      title="Edit Profile"
       buttonText="Save Changes"
       isOpen={isOpen}
-      handleCloseModal={handleCloseModal}
+      onClose={onClose}
       onSubmit={handleSubmit}
     >
-      <label htmlFor="name" className="modal__form-label">
-        Name {""}
+      <label className="modal__label" htmlFor="edit-name">
+        Name
         <input
-          type="name"
-          className="modal__form-input"
-          id="name"
-          placeholder="Name"
+          type="text"
+          className="modal__input"
+          id="edit-name"
+          name="editName"
           value={name}
           onChange={handleNameChange}
-        ></input>
+          required
+        />
       </label>
-      <label className="modal__form-label">
-        Avatar {""}
+      <label className="modal__label" htmlFor="avatar">
+        Avatar URL
         <input
           type="url"
-          className="modal__form-input"
-          id="url"
-          placeholder="Enter Url"
+          className="modal__input"
+          id="edit-avatar"
+          name="avatar"
           value={avatar}
           onChange={handleAvatarChange}
-        ></input>
+        />
       </label>
     </ModalWithForm>
   );
-}
+};
 
 export default EditProfileModal;

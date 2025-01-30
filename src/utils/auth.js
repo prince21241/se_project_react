@@ -1,47 +1,51 @@
-import checkResponse from "./Api";
+import { checkRes } from "./api";
 
-const baseUrl = "http://localhost:3001";
-const headers = {
-  "Content-Type": "application/json",
+const BASE_URL = "http://localhost:3001"; // Replace with your backend URL if different
+
+// Function to handle user registration
+export const signup = ({ name, avatar, email, password }) => {
+  return fetch(`${BASE_URL}/signup`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, avatar, email, password }),
+  })
+    .then(checkRes)
+    .catch((error) => {
+      console.error("Error in signup:", error);
+      throw error;
+    });
 };
 
-function signUp({ name, avatar, email, password }) {
-  console.log("Signing Up");
-  return fetch(`${baseUrl}/signup`, {
+// Function to handle user login
+export const signin = ({ email, password }) => {
+  return fetch(`${BASE_URL}/signin`, {
     method: "POST",
-    headers,
-    body: JSON.stringify({ name, avatar, email, password }),
-  }).then((res) => checkResponse(res)); // Removed syntax error
-}
-
-function signIn({ email, password }) {
-  console.log("Signing In");
-  return fetch(`${baseUrl}/signin`, {
-    method: "POST",
-    headers,
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({ email, password }),
-  }).then((res) => checkResponse(res));
-}
+  })
+    .then(checkRes)
+    .catch((error) => {
+      console.error("Error in signin:", error);
+      throw error;
+    });
+};
 
-function checkToken(token) {
-  return fetch(`${baseUrl}/users/me`, {
+// Function to validate token
+export const checkToken = (token) => {
+  return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
-      ...headers, // Reuse headers and add Authorization
-      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
     },
-  }).then((res) => checkResponse(res));
-}
-
-function sendNewUserData(userData, token) {
-  return fetch(`${baseUrl}/users/me`, {
-    method: "PATCH",
-    headers: {
-      ...headers, // Reuse headers and add Authorization
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(userData),
-  }).then((res) => checkResponse(res));
-}
-
-export { signUp, signIn, checkToken, sendNewUserData };
+  })
+    .then(checkRes)
+    .catch((error) => {
+      console.error("Error validating token:", error);
+      throw error;
+    });
+};

@@ -1,31 +1,21 @@
-.register__signIn {
-  display: flex;
-  gap: 2px;
-}
-
-.register__login-link {
-  font-weight: 700;
-  width: 80px;
-  height: 40px;
-  background-color: #fff;
-  color: #0000004d;
-  border-radius: 4px;
+.modal__secondary-button {
+  position: absolute;
+  bottom: 43px;
+  left: 160px;
+  background: none;
   border: none;
+  color: #030507;
+  font-size: 16px;
+  line-height: 20px;
+  margin-left: 8px;
   cursor: pointer;
+  padding: 0;
+  font-family: "Cabinet Grotesk Bold";
+  color: #00000080;
+  opacity: 50%;
 }
 
-.register__signup {
-  font-weight: 700;
-  width: 86px;
-  height: 36px;
-  background-color: #0000004d;
-  color: #fff;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-}
-
-button.enabled {
-  background-color: black;
-  cursor: pointer;
+.modal__secondary-button:hover {
+  text-decoration: none;
+  color: #030406;
 }

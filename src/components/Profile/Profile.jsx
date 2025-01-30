@@ -1,23 +1,35 @@
+import "./Profile.css";
 import ClothesSection from "../ClothesSection/ClothesSection";
 import SideBar from "../SideBar/SideBar";
-import Footer from "../Footer/Footer";
-import "./Profile.css";
 
-function Profile({ onCardClick, clothingItems, weatherData, handleAddClick }) {
+function Profile({
+  handleCardClick,
+  clothingItems,
+  handleDeleteItem,
+  handleAddClick,
+  handleSignOut,
+  handleEditProfileClick,
+  handleCardLike,
+}) {
   return (
     <div className="profile">
       <section className="profile__sidebar">
-        <SideBar />
+        <SideBar
+          openSignOutModal={handleSignOut}
+          openProfileEditModal={handleEditProfileClick}
+        />
       </section>
       <section className="profile__clothing-items">
         <ClothesSection
-          onCardClick={onCardClick}
+          handleCardClick={handleCardClick}
           clothingItems={clothingItems}
-          weatherData={weatherData}
+          handleDeleteItem={handleDeleteItem}
           handleAddClick={handleAddClick}
+          handleCardLike={handleCardLike}
         />
       </section>
     </div>
   );
 }
+
 export default Profile;

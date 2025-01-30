@@ -1,28 +1,29 @@
-import { checkResponse } from "./api";
+import { checkRes } from "./api";
 
 export const getWeather = ({ latitude, longitude }, APIkey) => {
   return fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${APIkey}`
-  ).then(checkResponse);
+  ).then(checkRes); // Use the imported checkRes function
 };
 
 export const filterWeatherData = (data) => {
   const result = {};
+  // City name
   result.city = data.name;
-  result.temp = {
-    F: data.main.temp,
-    C: Math.round(((data.main.temp - 32) * 5) / 9),
-  };
-  console.log(result.temp);
-
+  // Temperature in Fahrenheit and Celsius
+  const tempF = data.main.temp;
+  const tempC = Math.round((tempF - 32) * (5 / 9)); // Convert to Celsius
+  result.temp = { F: tempF, C: tempC };
+  // Weather type and condition
+  result.type = getWeatherType(tempF); // Use Fahrenheit for weather type logic
   result.condition = data.weather[0].main.toLowerCase();
-  result.isDay = isDay(data.sys, Date.now());
-  result.type = getWeatherType(result.temp.F);
-
+  // Check if it's day or night
+  result.isDay = isDay(data.sys);
   return result;
 };
 
-const isDay = ({ sunrise, sunset }, now) => {
+const isDay = ({ sunrise, sunset }) => {
+  const now = Date.now(); // Get current timestamp in milliseconds
   return sunrise * 1000 < now && now < sunset * 1000;
 };
 
@@ -31,7 +32,10 @@ const getWeatherType = (temperature) => {
     return "hot";
   } else if (temperature >= 66 && temperature < 86) {
     return "warm";
-  } else if (temperature <= 65) {
+  } else {
     return "cold";
   }
 };
+
+//weather.temperature.F = data.main.temp;
+//weather.temperature.C = Math.round((data.main.temp - 32) * 5/9);
