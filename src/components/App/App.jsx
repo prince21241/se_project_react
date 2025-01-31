@@ -10,7 +10,7 @@ import Profile from "../Profile/Profile";
 import Footer from "../Footer/Footer";
 
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import { CurrentTemperatureUnitContext } from "../../contexts/CurrentUserContext";
+import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
