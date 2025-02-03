@@ -1,6 +1,5 @@
 const baseUrl = "http://localhost:3001";
 
-// Helper function to handle response
 export const checkRes = (res) => {
   if (!res.ok) {
     return res.json().then((data) => {
@@ -10,7 +9,6 @@ export const checkRes = (res) => {
   return res.json();
 };
 
-// Helper function to include token in headers
 function getHeadersWithAuth(token) {
   return {
     "Content-Type": "application/json",
@@ -18,13 +16,11 @@ function getHeadersWithAuth(token) {
   };
 }
 
-// Fetch clothing items (unprotected)
 function getItems(weatherType) {
   const query = weatherType ? `?weather_like=${weatherType}` : "";
   return fetch(`${baseUrl}/items${query}`).then(checkRes);
 }
 
-// Add a new clothing item (protected)
 function postItem(item, token) {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
@@ -36,7 +32,6 @@ function postItem(item, token) {
   }).then(checkRes);
 }
 
-// Delete a clothing item (protected)
 function deleteItem(itemId, token) {
   console.log(`Deleting item with _id: ${itemId}`); // Debug log
   return fetch(`${baseUrl}/items/${itemId}`, {
@@ -45,7 +40,6 @@ function deleteItem(itemId, token) {
   }).then(checkRes);
 }
 
-// Fetch user data (protected)
 function getUserData(token) {
   return fetch(`${baseUrl}/users/me`, {
     method: "GET",
@@ -53,7 +47,6 @@ function getUserData(token) {
   }).then(checkRes);
 }
 
-// Update user profile (protected)
 export const updateUser = (userData, token) => {
   return fetch(`${baseUrl}/users/me`, {
     method: "PATCH",
@@ -62,7 +55,6 @@ export const updateUser = (userData, token) => {
   }).then(checkRes);
 };
 
-// Add a like to an item
 export const addCardLike = (id, token) => {
   return fetch(`${baseUrl}/items/${id}/likes`, {
     method: "PUT",
@@ -73,7 +65,6 @@ export const addCardLike = (id, token) => {
   }).then(checkRes);
 };
 
-// Remove a like from an item
 export const removeCardLike = (id, token) => {
   return fetch(`${baseUrl}/items/${id}/likes`, {
     method: "DELETE",
@@ -84,5 +75,4 @@ export const removeCardLike = (id, token) => {
   }).then(checkRes);
 };
 
-// Export all other functions
 export { getItems, postItem, deleteItem, getUserData };
