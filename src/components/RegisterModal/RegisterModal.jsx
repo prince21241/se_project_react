@@ -11,10 +11,15 @@ const RegisterModal = ({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [avatar, setAvatar] = useState(""); // Added avatar state
+
+  const handleChange = (e) => {
+    setAvatar(e.target.value); // Handle avatar URL input changes
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onRegister({ name, email, password });
+    onRegister({ name, email, password, avatar }); // Include avatar in registration
   };
 
   return (
@@ -62,6 +67,19 @@ const RegisterModal = ({
       >
         or login
       </button>
+      <label className="modal__label" htmlFor="avatar-url">
+        Avatar URL*
+        <input
+          className="modal__input"
+          type="url"
+          id="avatar-url"
+          name="avatar"
+          placeholder="Avatar URL"
+          required
+          onChange={handleChange}
+          value={avatar} // Use avatar state
+        />
+      </label>
     </ModalWithForm>
   );
 };
