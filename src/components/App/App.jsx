@@ -68,7 +68,7 @@ function App() {
 
     postItem(newItem, token)
       .then((savedItem) => {
-        setClothingItems([savedItem.data, ...clothingItems]);
+        setClothingItems([savedItem, ...clothingItems]);
         closeActiveModal();
       })
       .catch((error) => console.error("Error adding item:", error));
@@ -169,7 +169,7 @@ function App() {
 
   useEffect(() => {
     getItems()
-      .then((data) => setClothingItems(data.data))
+      .then((data) => setClothingItems(data))
       .catch((err) => console.error("Error fetching items:", err));
   }, []);
 
