@@ -118,5 +118,5 @@ export const APIkey = "52a10ddf5279203afb969d6a60da5d37";
 
 export const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://api.wtwr-project.serverpit.com/"
+    ? "https://api.wtwr-project.serverpit.com"
     : "http://localhost:3001";
